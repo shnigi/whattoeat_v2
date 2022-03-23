@@ -9,7 +9,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import SingleCard from './components/SingleCard';
 
 const fetchMyAPI = async (latitude, longitude, offset) => {
-  const productionApi = 'http://yelpapi.paska.xyz/yelp/business/search';
+  const productionApi = 'https://yelpapi.paska.xyz/yelp/business/search';
   const devApi = 'http://localhost:3334/yelp/business/search';
   const data = await postData(productionApi, {
     latitude: latitude,
@@ -45,7 +45,6 @@ function App() {
 
   useEffect(() => {
     if (latitude && longitude) {
-      console.log('arvot löytyi');
       fetchMyAPI(latitude, longitude, offset).then(data => setCards(data));
     }
   }, [latitude, longitude, offset]);

@@ -21,6 +21,5 @@ export const usePosition = () => {
         const watcher = geo.getCurrentPosition(onChange, onError);
         return () => geo.clearWatch(watcher);
     }, []);
-    console.log('POSITION', position);
     return { ...position, error };
 }

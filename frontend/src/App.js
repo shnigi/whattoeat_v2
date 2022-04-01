@@ -10,8 +10,9 @@ import SingleCard from './components/SingleCard';
 
 const fetchMyAPI = async (latitude, longitude, offset) => {
   // const productionApi = 'https://yelpapi.paska.xyz/yelp/business/search';
-  const devApi = 'http://localhost:3334/yelp/business/search';
-  const data = await postData(devApi, {
+  const productionApi = 'https://https://whattoeat.paska.xyz/yelp/business/search'
+  // const devApi = 'http://localhost:3334/yelp/business/search';
+  const data = await postData(productionApi, {
     latitude: latitude,
     longitude: longitude,
     offset

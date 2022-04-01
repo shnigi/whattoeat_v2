@@ -10,3 +10,5 @@ Steps to deploy:
 Set Apache proxy to localhost:3334
 
 Express servers React directly from frontend build and api in the same server. Apache only as proxy.
+
+TODO: deploy with docker and add proxypass to apache /api calls

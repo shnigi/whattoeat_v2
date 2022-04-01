@@ -9,10 +9,10 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import SingleCard from './components/SingleCard';
 
 const fetchMyAPI = async (latitude, longitude, offset) => {
-  // const productionApi = 'https://yelpapi.paska.xyz/yelp/business/search';
   const productionApi = 'https://whattoeat.paska.xyz/yelp/business/search'
-  // const devApi = 'http://localhost:3334/yelp/business/search';
-  const data = await postData(productionApi, {
+  const devApi = 'http://localhost:3334/yelp/business/search';
+  const api = process.env.NODE_ENV === 'development' ? devApi : productionApi;
+  const data = await postData(api, {
     latitude: latitude,
     longitude: longitude,
     offset
@@ -26,7 +26,6 @@ function App() {
   const [cards, setCards] = useState([]);
   const [offset, setoffset] = useState(0);
   const [loading, setLoading] = useState(false);
-
   const remove = () => {
     if (cards.length > 0) {
       setCards(cards.slice(1, cards.length));

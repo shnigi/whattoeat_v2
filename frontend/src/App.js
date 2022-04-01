@@ -1,12 +1,14 @@
 import './App.css';
-import React, { useState, useEffect } from "react"
-import { usePosition } from './components/usePosition';
-import postData from './utils/postData';
-import Swipeable from "react-swipy";
-import Card from "./components/Card";
+
 import { PrimaryButton, SecondaryButton } from "./components/Button";
+import React, { useEffect, useState } from "react"
+
+import Card from "./components/Card";
 import LoadingSpinner from "./components/LoadingSpinner";
 import SingleCard from './components/SingleCard';
+import Swipeable from "react-swipy";
+import postData from './utils/postData';
+import { usePosition } from './components/usePosition';
 
 const fetchMyAPI = async (latitude, longitude, offset) => {
   const productionApi = 'https://whattoeat.paska.xyz/yelp/business/search'

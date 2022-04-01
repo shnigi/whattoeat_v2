@@ -1,10 +1,12 @@
-import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { PrimaryButton } from '../components/Button';
 
-test('Button test', () => {
+import { render, screen } from '@testing-library/react';
+
+import { PrimaryButton } from '../components/Button';
+import React from 'react';
+import userEvent from '@testing-library/user-event';
+
+test('Button renders correctly and it can be clicked', () => {
     const onClick = jest.fn();
     render(<PrimaryButton onClick={onClick} />);
 

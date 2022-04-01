@@ -13,3 +13,5 @@ services:
     build: backend
     ports:
       - "3334:3334"
+    volumes:
+      - ./backend:/app

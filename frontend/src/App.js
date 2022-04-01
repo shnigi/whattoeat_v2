@@ -11,8 +11,8 @@ import postData from './utils/postData';
 import { usePosition } from './components/usePosition';
 
 const fetchMyAPI = async (latitude, longitude, offset) => {
-  const productionApi = 'https://whattoeat.paska.xyz/yelp/business/search'
-  const devApi = 'http://localhost:3334/yelp/business/search';
+  const productionApi = 'https://whattoeat.paska.xyz/api/business/search'
+  const devApi = 'http://localhost:3334/api/business/search';
   const api = process.env.NODE_ENV === 'development' ? devApi : productionApi;
   const data = await postData(api, {
     latitude: latitude,

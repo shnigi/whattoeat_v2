@@ -5,7 +5,7 @@ Steps to deploy:
 1. cd frontend
 2. npm run build
 3. cd backend
-4. pm2 start --name whattoeat app.js
+4. pm2 restart --name whattoeat app.js
 
 Set Apache proxy to localhost:3334
 

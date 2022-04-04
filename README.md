@@ -13,7 +13,21 @@ Express servers React directly from frontend build and api in the same server. A
 
 Previously two domains for backend and frontend using apache + node.
 
-TODO: deploy with docker and add proxypass to apache /api calls with docker-compose prod
+Add apache proxies:
+
+# Docker backend
+<Location /api>
+ProxyPass http://localhost:3335
+ProxyPassReverse http://localhost:3335
+</Location>
+
+# Docker frontend
+<Location />
+ProxyPass http://localhost:3336/
+ProxyPassReverse http://localhost:3336/
+</Location>
+
+Deploy with docker
 
 Docker commands:
 docker-compose -f docker-compose.prod.yml up -d --build
@@ -27,3 +41,7 @@ apk add nano
 
 Log to container
 docker exec -it ID sh
+
+What did I learn?
+
+Apache nginx combo requires dual proxy. One for apache and one for nginx. Otherwise nginx serves static content

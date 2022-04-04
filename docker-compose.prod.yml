@@ -7,13 +7,13 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     ports:
-      - '3335:80'
+      - '3336:80'
     depends_on:
      - backend
 
   backend:
     build: backend
     ports:
-      - "3334:3334"
+      - "3335:3335"
     volumes:
       - ./backend:/app

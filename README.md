@@ -18,3 +18,12 @@ TODO: deploy with docker and add proxypass to apache /api calls with docker-comp
 Docker commands:
 docker-compose -f docker-compose.prod.yml up -d --build
 docker-compose -f docker-compose.prod.yml down
+
+Restart nginx
+nginx -s reload
+
+Alpine add nano:
+apk add nano
+
+Log to container
+docker exec -it ID sh

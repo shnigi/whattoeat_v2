@@ -1,8 +1,8 @@
 version: '3.9'
 
 services:
-  frontend:
-    container_name: frontend
+  frontend-prod:
+    container_name: frontend-prod
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod

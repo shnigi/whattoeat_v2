@@ -14,3 +14,7 @@ Express servers React directly from frontend build and api in the same server. A
 Previously two domains for backend and frontend using apache + node.
 
 TODO: deploy with docker and add proxypass to apache /api calls with docker-compose prod
+
+Docker commands:
+docker-compose -f docker-compose.prod.yml up -d --build
+docker-compose -f docker-compose.prod.yml down

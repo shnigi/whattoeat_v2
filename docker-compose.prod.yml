@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - '3335:80'
+    depends_on:
+     - backend
+
+  backend:
+    build: backend
+    ports:
+      - "3334:3334"
+    volumes:
+      - ./backend:/app

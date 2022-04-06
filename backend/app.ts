@@ -12,6 +12,9 @@ app.use('/api', yelpRouter);
 app.get('/test', (req: Request, res: Response) => {
   res.send('Server is up and running');
 });
+app.get('/moro', (req: Request, res: Response) => {
+  res.send('moro');
+});
 app.listen(3334);
 
 module.exports = app;

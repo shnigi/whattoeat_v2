@@ -1,6 +1,13 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
-const SingleCard = ({ zIndex = 0, cards }) => {
+import { iCard } from './Card';
+
+interface CardProps {
+    zIndex: number;
+    cards: iCard[];
+}
+
+const SingleCard: ComponentType<CardProps> = ({ zIndex = 0, cards }) => {
     const backgroundImage = cards && cards[1].photos[0];
 
 if (!cards) return null;

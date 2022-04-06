@@ -4,8 +4,8 @@ import { render, screen } from '@testing-library/react';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 test('Loading spinner test', () => {
-    render(<LoadingSpinner />);
+  render(<LoadingSpinner />);
 
-    const loadingText = screen.getByText('Loading!');
-    expect(loadingText).toBeDefined();
+  const loadingText = screen.getByText('Loading!');
+  expect(loadingText).toBeDefined();
 });

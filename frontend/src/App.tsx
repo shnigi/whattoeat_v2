@@ -68,7 +68,8 @@ function App() {
             <Swipeable
               onSwipe={handleOnSwipe}
               // @ts-ignore
-              renderButtons={({ right, left }) => <CardButtons left={left} right={right} />}>
+              renderButtons={({ right, left }) => <CardButtons left={left} right={right} />}
+            >
               <Card cards={cards}></Card>
             </Swipeable>
             {cards.length > 1 && <SingleCard zIndex={-1} cards={cards}></SingleCard>}

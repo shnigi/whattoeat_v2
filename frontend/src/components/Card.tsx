@@ -33,7 +33,8 @@ const Card: ComponentType<CardProps> = ({ zIndex = 0, cards }) => {
         zIndex,
         backgroundColor: 'black',
         backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.25) 20%, rgba(0,0,0,0.25) 20%), url(${backgroundImage})`
-      }}>
+      }}
+    >
       <div className="infoContainer">
         <h1>{cards[0].name}</h1>
         <ul className="foodStyle">

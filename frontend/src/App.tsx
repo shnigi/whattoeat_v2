@@ -1,16 +1,16 @@
 import './App.css';
 
-import { PrimaryButton, SecondaryButton } from "./components/Button";
+import Card, {iCard} from "./components/Card";
 import React, { useEffect, useState } from "react"
+import { Swipeable, direction } from 'react-deck-swiper';
 
-import Card from "./components/Card";
+import CardButtons from './components/CardButtons';
 import LoadingSpinner from "./components/LoadingSpinner";
 import SingleCard from './components/SingleCard';
-import Swipeable from "react-swipy";
 import postData from './utils/postData';
 import { usePosition } from './components/usePosition';
 
-const fetchMyAPI = async (latitude, longitude, offset) => {
+const fetchMyAPI = async (latitude: number, longitude: number, offset: number) => {
   const productionApi = 'https://whattoeat.paska.xyz/api/business/search'
   const devApi = 'http://localhost:3335/api/business/search';
   const api = process.env.NODE_ENV === 'development' ? devApi : productionApi;
@@ -25,7 +25,7 @@ const fetchMyAPI = async (latitude, longitude, offset) => {
 
 function App() {
   const { latitude, longitude, error } = usePosition();
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([] as iCard[]);
   const [offset, setoffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const remove = () => {
@@ -35,19 +35,25 @@ function App() {
         setoffset((offset + 1) + 20);
       }
     }
-  }
+  };
 
-  const swipeRightHandler = (event) => {
-    const website = cards[0].url;
-    if (event === 'right') {
+    const handleOnSwipe = (swipeDirection: string) => {
+    if (swipeDirection === direction.RIGHT) {
+      const website = cards[0].url;
       setLoading(true);
       window.location.href = website;
+      return;
+    }
+
+    if (swipeDirection === direction.LEFT) {
+      remove();
+      return;
     }
   };
 
   useEffect(() => {
     if (latitude && longitude) {
-      fetchMyAPI(latitude, longitude, offset).then(data => setCards(data));
+      fetchMyAPI(latitude, longitude, offset).then((data: iCard[]) => setCards(data));
     }
   }, [latitude, longitude, offset]);
 
@@ -60,14 +66,9 @@ function App() {
         {cards.length > 0 && (
           <div className="wrapperStyles">
             <Swipeable
-              buttons={({ right, left }) => (
-                <div className="buttonContainer">
-                  <SecondaryButton onClick={left}></SecondaryButton>
-                  <PrimaryButton onClick={right}></PrimaryButton>
-                </div>
-              )}
-              onAfterSwipe={remove}
-              onSwipe={(event) => swipeRightHandler(event)}
+              onSwipe={handleOnSwipe}
+              // @ts-ignore
+              renderButtons={({right, left}) => <CardButtons left={left} right={right} />}
             >
               <Card cards={cards}></Card>
             </Swipeable>

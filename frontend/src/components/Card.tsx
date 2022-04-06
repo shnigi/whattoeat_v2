@@ -18,8 +18,8 @@ export interface iCard {
 };
 
 interface CardProps {
-    zIndex: number;
-    cards: iCard[];
+    zIndex?: number;
+    cards?: iCard[];
 }
 
 const Card: ComponentType<CardProps> = ({ zIndex = 0, cards }) => {

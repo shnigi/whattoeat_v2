@@ -7,7 +7,13 @@ interface iCoords {
     }
 };
 
-export const usePosition = () => {
+interface UsePosition {
+    error: string;
+    latitude: number;
+    longitude: number;
+}
+
+export const usePosition = (): UsePosition => {
     const [position, setPosition] = useState({});
     const [error, setError] = useState('');
 
@@ -22,12 +28,11 @@ export const usePosition = () => {
     };
     useEffect(() => {
         const geo = navigator.geolocation;
-        console.log('geo', geo)
         if (!geo) {
             setError('Geolocation is not supported');
             return;
         }
         geo.getCurrentPosition(onChange, onError);
     }, []);
-    return { ...position, error };
+    return { ...position, error } as UsePosition;
 }

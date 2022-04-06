@@ -1,13 +1,13 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-require('dotenv').config()
-const yelpApiUrl = "https://api.yelp.com/v3/graphql";
-const { GraphQLClient } = require("graphql-request");
+require('dotenv').config();
+const yelpApiUrl = 'https://api.yelp.com/v3/graphql';
+const { GraphQLClient } = require('graphql-request');
 const client = new GraphQLClient(yelpApiUrl, {
-  headers: { Authorization: `Bearer ${process.env.APIKEY}` },
+  headers: { Authorization: `Bearer ${process.env.APIKEY}` }
 });
 
-router.post("/business/search", async (req, res, next) => {
+router.post('/business/search', async (req, res, next) => {
   const query = `
     query search($latitude: Float!, $longitude: Float!, $offset: Int!) {
       search(

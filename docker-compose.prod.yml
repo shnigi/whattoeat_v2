@@ -9,11 +9,11 @@ services:
     ports:
       - '3336:80'
     depends_on:
-     - backend
-
-  backend:
-    build: backend
+     - backend-prod
+  backend-prod:
+    container_name: backend-prod
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
     ports:
       - "3335:3334"
-    volumes:
-      - ./backend:/app

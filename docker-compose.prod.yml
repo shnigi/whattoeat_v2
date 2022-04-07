@@ -17,3 +17,5 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - "3335:3334"
+    env_file:
+     - ./backend/.env

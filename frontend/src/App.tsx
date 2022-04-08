@@ -6,9 +6,20 @@ import { Swipeable, direction } from 'react-deck-swiper';
 
 import CardButtons from './components/CardButtons';
 import LoadingSpinner from './components/LoadingSpinner';
-import SingleCard from './components/SingleCard';
 import postData from './utils/postData';
+import styled from 'styled-components';
 import { usePosition } from './components/usePosition';
+
+const StyledWrapper = styled.div`
+    position: relative;
+    width: 500px;
+    height: 700px;
+
+  @media only screen and (max-width: 550px) {
+    width: 330px;
+    height: 500px;
+  }
+`;
 
 const fetchMyAPI = async (latitude: number, longitude: number, offset: number) => {
   const productionApi = 'https://whattoeat.paska.xyz/api/business/search';
@@ -62,9 +73,9 @@ function App() {
 
   return (
     <div className="appStyles">
-      <div className="wrapperStyles">
+      <StyledWrapper>
         {cards.length > 0 && (
-          <div className="wrapperStyles">
+          <StyledWrapper>
             <Swipeable
               onSwipe={handleOnSwipe}
               // @ts-ignore
@@ -72,11 +83,11 @@ function App() {
             >
               <Card cards={cards}></Card>
             </Swipeable>
-            {cards.length > 1 && <SingleCard zIndex={-1} cards={cards}></SingleCard>}
-          </div>
+            {cards.length > 1 && <Card single zIndex={-1} cards={cards}></Card>}
+          </StyledWrapper>
         )}
         {cards.length <= 1 && <Card zIndex={-2}>No more cards</Card>}
-      </div>
+      </StyledWrapper>
     </div>
   );
 }

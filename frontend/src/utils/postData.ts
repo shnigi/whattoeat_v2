@@ -11,7 +11,7 @@ interface iRestaurants {
   };
 }
 
-async function postData(url = '', data: PostData): Promise<iRestaurants> {
+const postData = async (url = '', data: PostData): Promise<iRestaurants> => {
   const response = await fetch(url, {
     method: 'POST',
     mode: 'cors', // no-cors, *cors, same-origin
@@ -23,4 +23,20 @@ async function postData(url = '', data: PostData): Promise<iRestaurants> {
   });
   return await response.json();
 }
-export default postData;
+
+const fetchMyAPI = async (latitude: number, longitude: number, offset: number) => {
+  const productionApi = 'https://whattoeat.paska.xyz/api/business/search';
+  const devApi = 'http://localhost:3335/api/business/search';
+  const api = process.env.NODE_ENV === 'development' ? devApi : productionApi;
+  const data = await postData(api, {
+    latitude: latitude,
+    longitude: longitude,
+    offset
+  });
+  const shuffledRestaurants = [...data.search.business].sort(() => Math.random() - 0.5);
+  return shuffledRestaurants;
+};
+
+export {
+  fetchMyAPI
+}

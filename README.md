@@ -40,7 +40,4 @@ docker exec -it ID sh
 - Backend has eslint and prettier configured
 
 ## TODO
-- Add styled components
-- Add github actions pipeline
-- Add Backend tests
-- Add End to End tests
+- Add CI pipeline

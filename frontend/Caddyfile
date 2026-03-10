@@ -1,10 +1,13 @@
 :80 {
-  root * /usr/share/caddy
-  encode gzip zstd
+	root * /usr/share/caddy
+	encode gzip zstd
 
-  @api path /api/*
-  reverse_proxy @api restauranttinderbackend:3334
+	handle /api/* {
+		reverse_proxy restauranttinderbackend:3334
+	}
 
-  try_files {path} /index.html
-  file_server
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
 }

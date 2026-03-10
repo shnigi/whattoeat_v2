@@ -1,6 +1,10 @@
 .appStyles {
-  margin-top: 20px;
+  height: 100svh;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  overflow: hidden;
+  padding: 12px;
+  background: radial-gradient(circle at top, #ffe6df 0%, #f6f6f6 45%, #ffffff 100%);
 }

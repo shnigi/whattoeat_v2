@@ -6,18 +6,20 @@ import styled from 'styled-components';
 interface ButtonProps {
   left: () => void;
   right: () => void;
+  disabled?: boolean;
 }
 
 const StyledButtonContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
-  margin-top: 15px;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 18px;
 `;
 
-const CardButtons: ComponentType<ButtonProps> = ({ left, right }) => (
+const CardButtons: ComponentType<ButtonProps> = ({ left, right, disabled }) => (
   <StyledButtonContainer>
-    <SecondaryButton onClick={left}></SecondaryButton>
-    <PrimaryButton onClick={right}></PrimaryButton>
+    <SecondaryButton onClick={left} disabled={disabled}></SecondaryButton>
+    <PrimaryButton onClick={right} disabled={disabled}></PrimaryButton>
   </StyledButtonContainer>
 );
 

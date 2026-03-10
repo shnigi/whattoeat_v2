@@ -9,6 +9,7 @@ backend/node_modules
 backend/.env
 
 frontend/build
+frontend/dist
 
 # testing
 /coverage

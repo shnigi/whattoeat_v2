@@ -1,17 +1,30 @@
-version: "3.9"
 services:
-  frontend:
-    build: frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
+  restauranttinderfrontend:
+    container_name: restauranttinderfrontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
     depends_on:
-     - backend
+      - restauranttinderbackend
+    restart: unless-stopped
+    networks:
+      - restauranttindernetwork
+      - proxy
 
-  backend:
-    build: backend
-    ports:
-      - "3335:3334"
-    volumes:
-      - ./backend:/app
+  restauranttinderbackend:
+    container_name: restauranttinderbackend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    env_file:
+      - ./backend/.env
+    restart: unless-stopped
+    networks:
+      - restauranttindernetwork
+
+networks:
+  restauranttindernetwork:
+    driver: bridge
+  proxy:
+    external: true
+    name: proxy

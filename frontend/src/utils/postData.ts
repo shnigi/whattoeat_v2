@@ -6,9 +6,7 @@ interface PostData {
 }
 
 interface iRestaurants {
-  search: {
-    business: iCard[];
-  };
+  businesses: iCard[];
 }
 
 const postData = async (url = '', data: PostData): Promise<iRestaurants> => {
@@ -21,19 +19,39 @@ const postData = async (url = '', data: PostData): Promise<iRestaurants> => {
     },
     body: JSON.stringify(data)
   });
-  return await response.json();
+
+  const rawBody = await response.text();
+  let parsedBody: iRestaurants | { error?: { description?: string } | string } | null = null;
+
+  if (rawBody) {
+    try {
+      parsedBody = JSON.parse(rawBody);
+    } catch {
+      parsedBody = { error: rawBody };
+    }
+  }
+
+  if (!response.ok) {
+    const errorMessage =
+      (typeof parsedBody?.error === 'object' && parsedBody?.error?.description) ||
+      (typeof parsedBody?.error === 'string' && parsedBody.error) ||
+      `Request failed with status ${response.status}`;
+    throw new Error(errorMessage);
+  }
+
+  return parsedBody as iRestaurants;
 }
 
 const fetchMyAPI = async (latitude: number, longitude: number, offset: number) => {
   const productionApi = 'https://whattoeat.paska.xyz/api/business/search';
-  const devApi = 'http://localhost:3335/api/business/search';
+  const devApi = '/api/business/search';
   const api = process.env.NODE_ENV === 'development' ? devApi : productionApi;
   const data = await postData(api, {
     latitude: latitude,
     longitude: longitude,
     offset
   });
-  const shuffledRestaurants = [...data.search.business].sort(() => Math.random() - 0.5);
+  const shuffledRestaurants = [...data.businesses].sort(() => Math.random() - 0.5);
   return shuffledRestaurants;
 };
 

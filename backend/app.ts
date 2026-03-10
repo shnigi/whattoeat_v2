@@ -11,6 +11,7 @@ app.use('/api', yelpRouter);
 app.get('/test', (req: Request, res: Response) => {
   res.send('Server is up and running');
 });
-app.listen(3334);
+const port = Number(process.env.PORT) || 3334;
+app.listen(port);
 
 module.exports = app;

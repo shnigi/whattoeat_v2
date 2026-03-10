@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, ReactNode } from 'react';
 
 import styled from 'styled-components';
 
@@ -7,27 +7,29 @@ export interface iCard {
   rating: number;
   url: string;
   review_count: number;
-  price: string;
-  photos: string[];
-  categories: [{ title: string }];
-  hours: [{ is_open_now: boolean; open: [{ start: string; end: string; day: number }] }];
+  price?: string;
+  image_url?: string;
+  photos?: string[];
+  categories: { title: string }[];
+  hours?: { is_open_now: boolean; open: { start: string; end: string; day: number }[] }[];
   location: {
-    address1: string;
-    city: string;
-    state: string;
-    country: string;
+    address1?: string;
+    city?: string;
+    state?: string;
+    country?: string;
   };
 }
 
 interface CardProps {
-  zIndex?: number;
+  $zIndex?: number;
   cards?: iCard[];
   single?: boolean;
+  children?: ReactNode;
 }
 
 const StyledCard = styled.div<CardProps>`
-  width: 500px;
-  height: 700px;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   user-select: none;
   position: absolute;
@@ -42,7 +44,7 @@ const StyledCard = styled.div<CardProps>`
   flex-direction: column;
   box-shadow: 0px 3px 17px 0px rgba(0, 0, 0, 0.25);
   justify-content: flex-end;
-  z-index: ${(props) => props.zIndex};
+  z-index: ${(props) => props.$zIndex};
   h1 {
     font-size: 35px;
   }
@@ -52,10 +54,6 @@ const StyledCard = styled.div<CardProps>`
   }
   .rating {
     font-size: 25px;
-  }
-  @media only screen and (max-width: 550px) {
-      width: 330px;
-      height: 500px;
   }
 `;
 
@@ -67,13 +65,22 @@ const StyledInfoContainer = styled.div`
   background: rgba(107, 123, 144, 0.7);
 `;
 
-const Card: ComponentType<CardProps> = ({ zIndex = 0, cards, single }) => {
+const Card: ComponentType<CardProps> = ({ $zIndex = 0, cards, single, children }) => {
   const singleCard = single ? 1 : 0;
-  const backgroundImage = cards && cards[singleCard].photos[0];
-  if (!cards) return null;
+  if (!cards || cards.length <= singleCard) {
+    return (
+      <StyledCard $zIndex={$zIndex}>
+        <StyledInfoContainer>
+          <h1>{children}</h1>
+        </StyledInfoContainer>
+      </StyledCard>
+    );
+  }
+
+  const backgroundImage = cards[singleCard].image_url || cards[singleCard].photos?.[0] || '';
   return (
     <StyledCard
-      zIndex={zIndex}
+      $zIndex={$zIndex}
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.25) 20%, rgba(0,0,0,0.25) 20%), url(${backgroundImage})`
       }}>
@@ -84,7 +91,7 @@ const Card: ComponentType<CardProps> = ({ zIndex = 0, cards, single }) => {
             <li key={index}>{category.title}</li>
           ))}
         </ul>
-        <p className="rating">Rating: {cards[0].rating}</p>
+        <p className="rating">Rating: {cards[singleCard].rating}</p>
       </StyledInfoContainer>
     </StyledCard>
   );

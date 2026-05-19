@@ -9,6 +9,8 @@ test('Card test', () => {
 
   expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
   expect(screen.getByRole('heading')).toHaveTextContent('Makalu');
+  expect(screen.getByText('Pikkalankatu 5')).toBeInTheDocument();
+  expect(screen.getByText('Avoinna')).toBeInTheDocument();
   const list = screen.getByRole('list');
   expect(list).toHaveTextContent('Himalayan/Nepalese');
   const rating = screen.getByText('Rating: 5');

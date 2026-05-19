@@ -27,6 +27,10 @@ interface CardProps {
   children?: ReactNode;
 }
 
+interface StatusChipProps {
+  $isOpen: boolean;
+}
+
 const StyledCard = styled.div<CardProps>`
   width: 100%;
   height: 100%;
@@ -57,12 +61,33 @@ const StyledCard = styled.div<CardProps>`
   }
 `;
 
+const StyledStatusChip = styled.div<StatusChipProps>`
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: ${(props) => (props.$isOpen ? 'rgba(50, 168, 82, 0.92)' : 'rgba(201, 52, 52, 0.92)')};
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: none;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.28);
+`;
+
 const StyledInfoContainer = styled.div`
   width: 100% - 35px;
   padding-left: 35px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   background: rgba(107, 123, 144, 0.7);
+`;
+
+const StyledAddress = styled.p`
+  margin: -12px 0 12px;
+  font-size: 18px;
 `;
 
 const Card: ComponentType<CardProps> = ({ $zIndex = 0, cards, single, children }) => {
@@ -78,14 +103,23 @@ const Card: ComponentType<CardProps> = ({ $zIndex = 0, cards, single, children }
   }
 
   const backgroundImage = cards[singleCard].image_url || cards[singleCard].photos?.[0] || '';
+  const isOpenNow = cards[singleCard].hours?.[0]?.is_open_now;
   return (
     <StyledCard
       $zIndex={$zIndex}
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.25) 20%, rgba(0,0,0,0.25) 20%), url(${backgroundImage})`
       }}>
+      {typeof isOpenNow === 'boolean' && (
+        <StyledStatusChip $isOpen={isOpenNow}>
+          {isOpenNow ? 'Avoinna' : 'Suljettu'}
+        </StyledStatusChip>
+      )}
       <StyledInfoContainer>
         <h1>{cards[singleCard].name}</h1>
+        {cards[singleCard].location.address1 && (
+          <StyledAddress>{cards[singleCard].location.address1}</StyledAddress>
+        )}
         <ul className="foodStyle">
           {cards[singleCard].categories.map((category, index: number) => (
             <li key={index}>{category.title}</li>

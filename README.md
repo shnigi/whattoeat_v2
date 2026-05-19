@@ -1,5 +1,5 @@
 Super quick remake of old whattoeat with less dependencies. Converted from gatsby in an hour.
-.env file with YELP_API_KEY=yelp apikey here
+.env file with GOOGLE_API=google places api key here
 
 ## Docker commands
 

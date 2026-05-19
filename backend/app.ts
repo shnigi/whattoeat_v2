@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express';
 const cors = require('cors');
 const yelpRouter = require('./routes/yelp');
 const app = express();
@@ -12,6 +12,9 @@ app.get('/test', (req: Request, res: Response) => {
   res.send('Server is up and running');
 });
 const port = Number(process.env.PORT) || 3334;
-app.listen(port);
+
+if (require.main === module) {
+  app.listen(port);
+}
 
 module.exports = app;
